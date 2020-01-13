@@ -1,0 +1,22 @@
+FROM python:3.7-slim
+
+MAINTAINER Pronto Team <dev@tupronto.mx>
+
+RUN mkdir -p /opt/city-service
+
+WORKDIR /opt/city-service
+
+ADD requirements requirements
+
+RUN pip install -r requirements/development.txt
+
+
+ENV MONGODB_URI mongodb://root_DB:PaPCmCbVCpjBmsYT@18.223.12.137:27017/prontoDev
+ENV ENVIRONMENT development
+ENV MQTT_USERNAME mqtt_username
+ENV MQTT_HOST mqtt_host
+ENV MQTT_PORT 1987
+ENV MQTT_PASSWORD mqtt_password
+ENV FLASK_ENV development
+
+EXPOSE 5000
