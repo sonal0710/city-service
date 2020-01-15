@@ -19,10 +19,10 @@ class MasterCitiesByStateResource(Resource):
             )
         )
 
-    def get(self, state:str):
+    def get(self, state):
         configuration = self.adapter.getCitiesByState(state)
         output = []
         for conf in configuration:
-            schema = CitySchema().dump(conf)
+            schema = CitySchema(only=("id","city")).dump(conf)
             output.append(schema)
         return ({'message': 'Success', 'data' : output})

@@ -22,6 +22,6 @@ class CityResource(Resource):
         configuration = self.adapter.get()
         output = []
         for conf in configuration:
-            schema = CitySchema().dump(conf)
+            schema = CitySchema(only=("id", "city", "currency", "currencySymbol")).dump(conf)
             output.append(schema)
         return ({'message': 'Got The Details.', 'data' : output})
