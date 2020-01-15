@@ -7,6 +7,9 @@ from configuration import MONGODB_URI
 from utils import is_production
 
 from presentation.resources.city import CityResource
+from presentation.resources.city_by_id import CityByIdResource
+from presentation.resources.get_all_state import MasterStatesResource
+from presentation.resources.get_cities_by_state import MasterCitiesByStateResource
 import sentry_sdk
 from sentry_sdk.integrations.flask import FlaskIntegration
 
@@ -20,6 +23,9 @@ def set_sentry():
 
 def set_resources(api):
     api.add_resource(CityResource, '/admin/city')
+    api.add_resource(CityByIdResource, '/admin/cityDetailsByCityIds/<cityId>')
+    api.add_resource(MasterStatesResource, '/master/state')
+    api.add_resource(MasterCitiesByStateResource, '/master/city/<state>')
 
 
 def set_marshmallow(app):

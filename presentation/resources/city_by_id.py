@@ -6,9 +6,10 @@ from bson.json_util import dumps
 from domain.interface_adapters.city_adapter import CityAdapter
 from data.repositories.city import CityRepository
 from presentation.schemas.city import CitySchema
+from presentation.validations.CityIdValidationSchema import CityIdValidationSchema
+from validation_errors_utils import parse_validation_errors
 
-
-class CityResource(Resource):
+class CityByIdResource(Resource):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -18,10 +19,9 @@ class CityResource(Resource):
             )
         )
 
-    def get(self):
-        configuration = self.adapter.get()
-        output = []
-        for conf in configuration:
-            schema = CitySchema().dump(conf)
-            output.append(schema)
-        return ({'message': 'Got The Details.', 'data' : output})
+    @parse_validation_errors
+    def get(self, cityId):
+        cityId = CityIdValidationSchema().load({ 'cityId':cityId })
+        configuration = self.adapter.getById(cityId)
+        schema = CitySchema().dump(configuration)
+        return ({'message': 'Got The Details.', 'data' : schema})
