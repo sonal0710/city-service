@@ -42,7 +42,7 @@ sentinels==1.0.0
 sentry-sdk==0.13.5
 six==1.13.0
 traitlets==4.3.3
-urllib3==1.25.7
+urllib3==1.25.8
 wcwidth==0.1.7
 Werkzeug==0.16.0
 zipp==0.6.0
